@@ -1,5 +1,5 @@
-require_relative 'piece'
-require_relative 'null_piece'
+require_relative 'Pieces/piece'
+require_relative 'Pieces/null_piece'
 
 class Board
 
