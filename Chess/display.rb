@@ -13,26 +13,27 @@ class Display
   end
 
   def render
-    # system("clear")
-    puts "   #{(0..7).to_a.join('  ')}"
-    #  @board.grid.each_with_index do |row, idx|
-    color_x, color_y = @cursor.cursor_pos
+    system("clear")
 
+    color_x, color_y = @cursor.cursor_pos
+    @cursor.selected ? move_set = @board[[color_x, color_y]].moves : move_set = []
+
+    puts "   #{(0..7).to_a.join('  ')}"
     (0..7).each do |i|
       print "#{i} "
       (0..7).each do |j|
-        if i == color_x && j == color_y
+        if move_set.include?([i, j])
+          print " #{@board[[i, j]].symbol} ".colorize(background: :light_black)
+        elsif i == color_x && j == color_y
           print " #{@board[[i, j]].symbol} ".colorize(background: :red)
         elsif (i.even? && j.even?) || (i.odd? && j.odd?)
           print " #{@board[[i, j]].symbol} ".colorize(background: :light_magenta)
         else
-          # debugger
           print " #{@board[[i, j]].symbol} ".colorize(background: :magenta)
         end
       end
       puts
     end
-
   end
 
   def [](row, col)

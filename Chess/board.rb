@@ -92,4 +92,5 @@ class Board
     # raise "X out of bounds." unless x.between?(0, 7)
     # raise "Y out of bounds." unless y.between?(0, 7)
   end
+
 end

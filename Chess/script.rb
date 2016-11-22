@@ -13,12 +13,10 @@ load 'Pieces/slideable.rb'
 
 b = Board.new
 d = Display.new(b)
-# while true
-#   d.cursor.get_input
-#   d.render
-# end
+while true
+  d.render
+  d.cursor.get_input
+end
 
 # king = King.new(:white, [0, 0], b)
-d.render
-b.move_piece([1, 1], [2, 1])
-d.render
+# d.render
