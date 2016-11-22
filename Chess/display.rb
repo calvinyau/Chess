@@ -12,7 +12,8 @@ class Display
   end
 
   def render
-    puts "   #{(0..7).to_a.join(" ")}"
+    system("clear")
+    puts "   #{(0..7).to_a.join('  ')}"
     #  @board.grid.each_with_index do |row, idx|
     color_x, color_y = @cursor.cursor_pos
 
@@ -20,13 +21,16 @@ class Display
       print "#{i} "
       (0..7).each do |j|
         if i == color_x && j == color_y
-          print " #{@board[[i, j]].value}".colorize(:red)
+          print " #{@board[[i, j]].value} ".colorize(background: :red,
+                                                    color: :white)
+        elsif (i.even? && j.even?) || (i.odd? && j.odd?)
+          print " #{@board[[i, j]].value} "
         else
-          print " #{@board[[i, j]].value}"
+          print " #{@board[[i, j]].value} ".colorize(color: :white,
+                                                    background: :black)
         end
       end
       puts
-      @board[@cursor.cursor_pos].value.colorize(color: :red)
     end
 
   end
