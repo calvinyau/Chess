@@ -14,23 +14,11 @@ class Manager < Employee
       else
         total += employee1.bonus(multiplier)
       end
-
     end
     total
-
-
-    # total * multiplier
   end
 
   def add_employee(employee)
     employee_list << employee
   end
 end
-# total = 0
-# return 0 if employee_list.nil? || employee_list.empty?
-# employee_list.each do |employee|
-#   total += employee.salary * multiplier if employee_list
-#   total += employee.bonus(multiplier)
-
-# end
-# total
