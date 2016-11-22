@@ -89,6 +89,14 @@ class Cursor
       update_pos(MOVES[:up])
     when :down
       update_pos(MOVES[:down])
+    when :tab
+
+    when :return
+
+    when :newline
+
+    when :escape
+
     when :ctrl_c
       Process.exit(0)
     end
@@ -97,8 +105,7 @@ class Cursor
   def update_pos(diff)
     x = @cursor_pos[0] + diff[0]
     y = @cursor_pos[1] + diff[1]
-    @cursor_pos = [x, y] if @board.in_bounds(x, y)
-
-
+    @cursor_pos = [x, y] if @board.in_bounds?([x, y])
+    @cursor.board.render
   end
 end
