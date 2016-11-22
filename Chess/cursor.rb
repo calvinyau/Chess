@@ -37,6 +37,11 @@ class Cursor
   def initialize(cursor_pos, board)
     @cursor_pos = cursor_pos
     @board = board
+    @selected = false
+  end
+
+  def select_toggle
+    @selected = !@selected
   end
 
   def get_input
@@ -78,8 +83,10 @@ class Cursor
   def handle_key(key)
     case key
     when :return
+      select_toggle
       @cursor_pos
     when :space
+      select_toggle
       @cursor_pos
     when :left
       update_pos(MOVES[:left])
