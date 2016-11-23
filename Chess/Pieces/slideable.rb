@@ -3,12 +3,12 @@ module Slideable
   def moves
     move_set = []
 
-    DELTA.each do |dir|
+    @delta.each do |dir|
       curr_pos = @pos
       next_pos = increment_pos(curr_pos, dir)
-      while @board[next_pos].empty? && on_board_move(next_pos)
+      while on_board_move(next_pos) && @board[next_pos].empty?
         move_set << next_pos
-        next_pos = increment_pos(curr, dir)
+        next_pos = increment_pos(next_pos, dir)
       end
       if on_board_move(next_pos) && @board[next_pos].color != self.color
         move_set << next_pos

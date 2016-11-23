@@ -1,6 +1,6 @@
 class Piece
-  attr_reader :symbol, :board
-  attr_reader :pos
+  attr_reader :symbol, :board, :delta, :color
+  attr_accessor :pos
 
   def initialize(color, pos, board)
     @color = color
@@ -8,12 +8,11 @@ class Piece
     @board = board
   end
 
-  def to_s()
+  def to_s
 
   end
 
-  def empty?()
-    #return equals NullPiece instance
+  def empty?
     return true if self == NullPiece.instance
     false
   end
@@ -28,11 +27,12 @@ class Piece
 
   def on_board_move(pos)
     x, y = pos
-    true
-    false if x.outside?(0, 7) || y.outside?(0, 7)
+    return true if x.between?(0, 7) && y.between?(0, 7)
+    false
   end
 
   private
+
   def move_into_check
 
   end

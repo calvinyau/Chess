@@ -2,7 +2,7 @@ module Stepable
 
   def moves
     move_set = []
-    DELTA.each do |dir|
+    @delta.each do |dir|
       new_x = @pos[0] + dir[0]
       new_y = @pos[1] + dir[1]
       new_pos = [new_x, new_y]

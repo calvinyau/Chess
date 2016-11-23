@@ -32,17 +32,31 @@ MOVES = {
 
 class Cursor
 
-  attr_reader :cursor_pos, :board, :selected
+  attr_reader :cursor_pos, :board, :selected, :selected_pos
 
   def initialize(cursor_pos, board)
     @cursor_pos = cursor_pos
     @board = board
     @selected = false
+    @selected_pos = nil
   end
 
   def select_toggle
-    @selected = !@selected
-    # @board.display_moves(@cursor_pos)
+    begin
+      if @selected
+        @selected = false
+        selected_move_set = @board[@selected_pos].moves
+        if selected_move_set.include?(@cursor_pos)
+          @board.move_piece(@selected_pos, @cursor_pos)
+        end
+        @selected_pos = nil
+      elsif !@board[cursor_pos].empty?
+        @selected = true
+        @selected_pos = @cursor_pos
+      end
+    rescue
+      p "messed up"
+    end
   end
 
   def get_input

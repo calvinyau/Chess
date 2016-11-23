@@ -6,18 +6,20 @@ class Pawn < Piece
 
   def moves
     @color == :white ? move_set = white_moves : move_set = black_moves
-    move_set
-    move_set = []
 
-    if on_board_move(new_pos) &&
-      (@board[new_pos].empty? || @board[new_pos].color != self.color)
-      move_set << new_pos
-    end
+
+    # if on_board_move(new_pos) &&
+    #   (@board[new_pos].empty? || @board[new_pos].color != self.color)
+    #   move_set << new_pos
+    # end
   end
 
   def white_moves
     move_set = []
-    move_set << [@pos[0] + 1, @pos[1]] if @board[[@pos[0] + 1, @pos[1]]].empty?
+    if @board.in_bounds?([@pos[0] + 1, @pos[1]]) &&
+          @board[[@pos[0] + 1, @pos[1]]].empty?
+      move_set << [@pos[0] + 1, @pos[1]]
+    end
 
     if @pos[0] == 1
       move_set << [3, @pos[1]] if @board[[3, @pos[1]]].empty?
@@ -38,8 +40,10 @@ class Pawn < Piece
 
   def black_moves
     move_set = []
-    move_set << [@pos[0] - 1, @pos[1]] if @board[[@pos[0] - 1, @pos[1]]].empty?
-
+    if @board.in_bounds?([@pos[0] - 1, @pos[1]]) &&
+          @board[[@pos[0] - 1, @pos[1]]].empty?
+      move_set << [@pos[0] - 1, @pos[1]]
+    end
     if @pos[0] == 6
       move_set << [4, @pos[1]] if @board[[4, @pos[1]]].empty?
     end
@@ -53,7 +57,7 @@ class Pawn < Piece
         end
       end
     end
-    
+
     move_set
   end
 end

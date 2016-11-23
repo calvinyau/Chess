@@ -68,10 +68,14 @@ class Board
 
 
   def move_piece(start_pos, end_pos)
+    p "Running"
     raise "No piece at #{start_pos}." if self[start_pos].empty?
-    raise "#{end_pos} already has a piece." unless self[end_pos].empty?
+    # raise "#{end_pos} already has a piece." unless self[end_pos].empty?
     self[end_pos] = self[start_pos]
+    p self[end_pos]
+    self[end_pos].pos = end_pos
     self[start_pos] = NullPiece.instance
+
   end
 
   def [](pos)
