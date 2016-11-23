@@ -18,8 +18,10 @@ class Board
   end
 
   def place_kings
-    self[[0,4]] = King.new(:white, [0, 4], self)
-    self[[7, 3]] = King.new(:black, [7, 3], self)
+    @white_king = King.new(:white, [0, 4], self)
+    @black_king = King.new(:black, [7, 3], self)
+    self[[0,4]] = @white_king
+    self[[7, 3]] = @black_king
   end
 
   def place_queens
@@ -68,11 +70,11 @@ class Board
 
 
   def move_piece(start_pos, end_pos)
-    p "Running"
     raise "No piece at #{start_pos}." if self[start_pos].empty?
-    # raise "#{end_pos} already has a piece." unless self[end_pos].empty?
+    if self.in_check?(:black)
+      puts "IN CHECK"
+    end
     self[end_pos] = self[start_pos]
-    p self[end_pos]
     self[end_pos].pos = end_pos
     self[start_pos] = NullPiece.instance
 
@@ -93,8 +95,36 @@ class Board
     return false unless x.between?(0, 7)
     return false unless y.between?(0, 7)
     true
-    # raise "X out of bounds." unless x.between?(0, 7)
-    # raise "Y out of bounds." unless y.between?(0, 7)
+  end
+
+  def in_check?(color)
+    if color == :white
+      king_pos = @white_king.pos
+      (0..7).each do |y|
+        (0..7).each do |x|
+          curr_piece = self[[y, x]]
+          if curr_piece.color == :black
+            if curr_piece.moves.include?(king_pos)
+              return true
+            end
+          end
+        end
+      end
+      return false
+    elsif color == :black
+      king_pos = @black_king.pos
+      (0..7).each do |y|
+        (0..7).each do |x|
+          curr_piece = self[[y, x]]
+          if curr_piece.color == :white
+            if curr_piece.moves.include?(king_pos)
+              return true
+            end
+          end
+        end
+      end
+      return false
+    end
   end
 
 end

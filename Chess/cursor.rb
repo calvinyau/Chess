@@ -42,7 +42,7 @@ class Cursor
   end
 
   def select_toggle
-    begin
+    # begin
       if @selected
         @selected = false
         selected_move_set = @board[@selected_pos].moves
@@ -54,9 +54,9 @@ class Cursor
         @selected = true
         @selected_pos = @cursor_pos
       end
-    rescue
-      p "messed up"
-    end
+    # rescue StandardError => e
+      # p "#{e.message}"
+    # end
   end
 
   def get_input
